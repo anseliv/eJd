@@ -1,12 +1,17 @@
-version: '2'
+version: '2.4'
 
 
-ejabberd:
-  image: ejabberd/ecs
-  ports:
-    - 5222:5222
-    - 5269:5269
-    - 5280:5280
-   volumes:
-     - ./conf/ejabberd.yml:/home/ejabberd/conf/ejabberd.yml
-     - ./database:/home/ejabberd/database
+services:
+  ejabberd:
+    image: ejabberd/ecs
+    ports:
+      - 5222:5222
+      - 5269:5269
+      - 5280:5280
+    volumes:
+      - type: bind
+        source: ./conf/ejabberd.yml
+        target: /home/ejabberd/conf/ejabberd.yml
+      - type: volume
+        source: ./database
+        target: /home/ejabberd/database
